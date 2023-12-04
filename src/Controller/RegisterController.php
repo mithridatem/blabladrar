@@ -72,6 +72,7 @@ class RegisterController extends AbstractController
     {
         $message = "";
         $code = 200;
+        $groupe = "";
         $json = $request->getContent();
         //test json valide
         if ($json) {
@@ -81,29 +82,33 @@ class RegisterController extends AbstractController
             if ($recup) {
                 //test password valide
                 if ($this->hash->isPasswordValid($recup, $data["password"])) {
-                    $message = ["token" => $recup->getToken()];
+                    $message = $recup;
+                    $groupe = ['groups' => 'user'];
                 }
                 //test password invalide
                 else {
                     $message = ["error" => "Informations de connexion invalides"];
                     $code = 400;
+                    $groupe = [];
                 }
             }
             //test compte n'existe pas
             else {
                 $message = $message = ["error" => "Informations de connexion invalides"];
                 $code = 400;
+                $groupe = [];
             }
         }
         //test json invalide
         else {
             $message = ["error" => "Json Invalide"];
             $code = 400;
+            $groupe = [];
         }
         return $this->json($message, $code, [
             'Content-Type' => 'application/json',
             'Access-Control-Allow-Origin' => '*'
-        ]);
+        ],$groupe);
     }
     #[Route('/user/id/{id}', name: 'app_register_id')]
     public function getUserById($id): Response
