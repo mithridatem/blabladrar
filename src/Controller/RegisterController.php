@@ -12,7 +12,6 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Serializer\SerializerInterface;
 use App\Service\UtilsService;
-use Masterminds\HTML5\Parser\UTF8Utils;
 
 class RegisterController extends AbstractController
 {
