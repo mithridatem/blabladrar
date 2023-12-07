@@ -46,6 +46,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Groups(['user'])]
     private ?string $token = null;
 
+    #[ORM\Column(length: 250, nullable: true)]
+    private ?string $imgUsers = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -160,6 +163,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setToken(string $token): static
     {
         $this->token = $token;
+
+        return $this;
+    }
+
+    public function getImgUsers(): ?string
+    {
+        return $this->imgUsers;
+    }
+
+    public function setImgUsers(?string $imgUsers): static
+    {
+        $this->imgUsers = $imgUsers;
 
         return $this;
     }
